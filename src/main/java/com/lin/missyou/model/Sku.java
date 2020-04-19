@@ -28,8 +28,13 @@ public class Sku extends BaseEntity{
     private String img;
     private String title;
     private Long spuId;
-//    @Convert(converter = ListAndJson.class)
+
     private String specs;
+
+    private String code;
+    private Long stock;
+    private Long categoryId;
+    private Long rootCategoryId;
 
     public BigDecimal getActualPrice(){
         return discountPrice==null ? this.price : this.discountPrice;
@@ -49,13 +54,6 @@ public class Sku extends BaseEntity{
         this.specs = GenericAndJson.objectToJson(specs);
     }
 
-    private String code;
-    private int stock;
-    private Long categoryId;
-    private Long rootCategoryId;
-
-    @Convert(converter = MapAndJson.class)
-    private Map<String,Object> test;
 
     @JsonIgnore
     public List<String> getSpecValueList(){
