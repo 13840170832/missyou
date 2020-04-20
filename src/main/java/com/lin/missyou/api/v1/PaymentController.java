@@ -1,5 +1,7 @@
 package com.lin.missyou.api.v1;
 
+import com.lin.missyou.service.WxPaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +18,13 @@ import java.util.Map;
 @Validated
 public class PaymentController {
 
+    @Autowired
+    private WxPaymentService wxPaymentService;
+
     @PostMapping("/pay/order/{id}")
     public Map<String,String> preWxOrder(@PathVariable(name="id") @Positive Long oid){
-
-        return null;
+        Map<String,String> miniPayParams = wxPaymentService.preOrder(oid);
+        return miniPayParams;
     }
 
     @RequestMapping("/wx/notify")
