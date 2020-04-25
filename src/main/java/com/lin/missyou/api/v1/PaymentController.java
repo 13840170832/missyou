@@ -1,7 +1,12 @@
 package com.lin.missyou.api.v1;
 
 import com.github.wxpay.sdk.LinWxPayConfig;
+import com.lin.missyou.core.LocalUser;
+import com.lin.missyou.core.interceptors.ScopeLevel;
 import com.lin.missyou.lib.LinWxNotify;
+import com.lin.missyou.service.WxPaymentNotifyService;
+import com.lin.missyou.service.WxPaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +25,17 @@ import java.util.Map;
 @Validated
 public class PaymentController {
 
-    @PostMapping("/pay/order/{id}")
-    public Map<String,String> preWxOrder(@PathVariable(name="id") @Positive Long oid){
+    @Autowired
+    private WxPaymentService wxPaymentService;
 
-        return null;
+    @Autowired
+    private WxPaymentNotifyService wxPaymentNotifyService;
+
+    @PostMapping("/pay/order/{id}")
+    @ScopeLevel
+    public Map<String,String> preWxOrder(@PathVariable(name="id") @Positive Long oid){
+        Map<String,String> miniPayParams = wxPaymentService.preOrder(oid);
+        return miniPayParams;
     }
 
     @RequestMapping("/wx/notify")
@@ -39,6 +51,11 @@ public class PaymentController {
         }
         String xml;
         xml = LinWxNotify.readNotify(s);
-        return null;
+        try{
+            wxPaymentNotifyService.processPayNotify(xml);
+        }catch (Exception e){
+            return LinWxNotify.fail();
+        }
+        return LinWxNotify.success();
     }
 }
