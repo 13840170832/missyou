@@ -18,9 +18,6 @@ public class TopicMessageListener implements MessageListener {
     @Autowired
     private CouponBackService couponBackService;
 
-    @Autowired
-    private OrderRepository orderRepository;
-
     @Override
     public void onMessage(Message message, byte[] bytes) {
         byte[] body = message.getBody();
