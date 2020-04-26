@@ -5,22 +5,22 @@ import java.io.InputStream;
 public class LinWxPayConfig extends WXPayConfig {
 
     @Override
-    public String getAppID() {
+    String getAppID() {
         return null;
     }
 
     @Override
-    public String getMchID() {
+    String getMchID() {
         return null;
     }
 
     @Override
-    public String getKey() {
+    String getKey() {
         return null;
     }
 
     @Override
-    public InputStream getCertStream() {
+    InputStream getCertStream() {
         return null;
     }
 
@@ -34,6 +34,17 @@ public class LinWxPayConfig extends WXPayConfig {
 
     @Override
     public IWXPayDomain getWXPayDomain() {
-        return null;
+        IWXPayDomain iwxPayDomain = new IWXPayDomain() {
+            @Override
+            public void report(String domain, long elapsedTimeMillis, Exception ex) {
+
+            }
+
+            @Override
+            public DomainInfo getDomain(WXPayConfig config) {
+                return new IWXPayDomain.DomainInfo(WXPayConstants.DOMAIN_API, true);
+            }
+        };
+        return iwxPayDomain;
     }
 }
