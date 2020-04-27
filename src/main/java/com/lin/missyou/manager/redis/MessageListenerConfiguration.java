@@ -1,5 +1,6 @@
 package com.lin.missyou.manager.redis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +16,8 @@ public class MessageListenerConfiguration {
     @Value("${spring.redis.listen-pattern}")
     public String pattern;
 
-    @Bean
-    public MessageListener getTopicMessageListener(){
-        return new TopicMessageListener();
-    }
+    @Autowired
+    private TopicMessageListener topicMessageListener;
 
     @Bean
     public RedisMessageListenerContainer listenerContainer(RedisConnectionFactory redisConnection){
@@ -26,7 +25,7 @@ public class MessageListenerConfiguration {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(redisConnection);	//redisConnection取到redis的连接信息
         Topic topic = new PatternTopic(pattern);    //监听主题初始化
-        container.addMessageListener(this.getTopicMessageListener(),topic); //添加监听器和所监听得主题
+        container.addMessageListener(topicMessageListener,topic); //添加监听器和所监听得主题
         return container;
     }
 }

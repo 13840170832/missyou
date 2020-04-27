@@ -10,6 +10,7 @@ import com.lin.missyou.repository.UserCouponRepository;
 import javafx.scene.layout.BorderRepeat;
 import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class CouponBackService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @EventListener
     @Transactional
     public void returnBack(OrderMessageBO messageBO){
         Long uid = messageBO.getUid();

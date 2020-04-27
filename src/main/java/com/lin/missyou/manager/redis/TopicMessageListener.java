@@ -5,21 +5,20 @@ import com.lin.missyou.repository.OrderRepository;
 import com.lin.missyou.service.CouponBackService;
 import com.lin.missyou.service.OrderCancelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class TopicMessageListener implements MessageListener {
 
-    @Autowired
-    private OrderCancelService orderCancelService;
+    private static ApplicationEventPublisher publisher;
 
     @Autowired
-    private CouponBackService couponBackService;
-
-    @Autowired
-    private OrderRepository orderRepository;
+    public void setPublisher(ApplicationEventPublisher publisher){
+        TopicMessageListener.publisher = publisher;
+    }
 
     @Override
     public void onMessage(Message message, byte[] bytes) {
@@ -27,10 +26,7 @@ public class TopicMessageListener implements MessageListener {
         byte[] channel =message.getChannel();
         String expiredKey = new String(body);
         String topic = new String(channel);
-        System.out.println(expiredKey);
-        System.out.println(topic);
         OrderMessageBO messageBO = new OrderMessageBO(expiredKey);
-        orderCancelService.cancel(messageBO);
-        couponBackService.returnBack(messageBO);
+        TopicMessageListener.publisher.publishEvent(messageBO);
     }
 }
