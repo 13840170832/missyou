@@ -17,6 +17,12 @@ public class CommonUtil {
         return pageCounter;
     }
 
+    public static String timestamp10(){
+        Long timestamp13 = Calendar.getInstance().getTimeInMillis();
+        String timestamp13Str = timestamp13.toString();
+        return timestamp13Str.substring(0,timestamp13Str.length() - 3);
+    }
+
     public static Boolean isInTimeLine(Date date, Date start, Date end){
         Long dateTime = date.getTime();
         Long startTime = start.getTime();

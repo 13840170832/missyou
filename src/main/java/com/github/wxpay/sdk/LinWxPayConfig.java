@@ -5,22 +5,22 @@ import java.io.InputStream;
 public class LinWxPayConfig extends WXPayConfig {
 
     @Override
-    String getAppID() {
+    public String getAppID() {
         return null;
     }
 
     @Override
-    String getMchID() {
+    public String getMchID() {
         return null;
     }
 
     @Override
-    String getKey() {
+    public String getKey() {
         return null;
     }
 
     @Override
-    InputStream getCertStream() {
+    public InputStream getCertStream() {
         return null;
     }
 
