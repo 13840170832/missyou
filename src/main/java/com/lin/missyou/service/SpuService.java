@@ -37,4 +37,9 @@ public class SpuService {
         }
         return page;
     }
+
+    public Page<Spu> search(String keyword,Integer pageNum,Integer size){
+        Pageable pageable = PageRequest.of(pageNum,size);
+        return spuRepository.findByTitleContainingOrSubtitleContainingOrTagsContaining(keyword,keyword,keyword,pageable);
+    }
 }

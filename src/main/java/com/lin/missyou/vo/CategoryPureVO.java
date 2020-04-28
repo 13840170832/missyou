@@ -8,9 +8,9 @@ import org.springframework.beans.BeanUtils;
 @Getter
 @Setter
 public class CategoryPureVO {
-    private int id;
+    private Long id;
     private String name;
-    private byte isRoot;
+    private Boolean isRoot;
     private Integer parentId;
     private String img;
     private Integer index;

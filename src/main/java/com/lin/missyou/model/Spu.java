@@ -12,8 +12,8 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-//@Where(clause = "delete_time is null and online = 1 ")
-@NamedQuery(name = "Spu.findByCategoryId",query = "select s from Spu s where s.categoryId >= ?1")
+@Where(clause = "delete_time is null and online = 1 ")
+//@NamedQuery(name = "Spu.findByCategoryId",query = "select s from Spu s where s.categoryId >= ?1")
 public class Spu extends BaseEntity{
     @Id
     private Long id;

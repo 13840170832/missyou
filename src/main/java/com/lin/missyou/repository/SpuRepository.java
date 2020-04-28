@@ -17,4 +17,5 @@ public interface SpuRepository extends JpaRepository<Spu,Long> {
 
     Page<Spu> findByCategoryIdOrderByCreateTimeDesc(Long cid, Pageable pageable);
 
+    Page<Spu> findByTitleContainingOrSubtitleContainingOrTagsContaining(String keyword1,String keyword2,String keyword3,Pageable pageable);
 }

@@ -61,6 +61,16 @@ public class SpuController {
         return new PagingDozer(spuPage,SpuSimplifyVO.class);
     }
 
+    @RequestMapping("/search")
+    public PagingDozer<Spu,SpuSimplifyVO> search(@RequestParam(name="q") String keyword,
+                                                 @RequestParam(defaultValue = "0") Integer start,
+                                                 @RequestParam(defaultValue = "10") Integer count){
+        PageCounter pageCounter = CommonUtil.convertToPageParameter(start,count);
+        Page<Spu> spuPage = spuService.search(keyword,pageCounter.getPage(),pageCounter.getCount());
+        return new PagingDozer(spuPage,SpuSimplifyVO.class);
+    }
+
+
 
 
 
