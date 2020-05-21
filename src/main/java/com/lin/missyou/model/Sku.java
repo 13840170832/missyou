@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @Setter
-    @Where(clause = "delete_time is null and online = 1 ")
+    @Where(clause = "delete_time is null and online = 1 and stock > 0 ")
 public class Sku extends BaseEntity{
     @Id
     private Long id;

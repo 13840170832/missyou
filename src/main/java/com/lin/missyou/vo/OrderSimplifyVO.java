@@ -18,7 +18,7 @@ public class OrderSimplifyVO {
     private BigDecimal finalTotalPrice;
     private Integer status;
     private Date expiredTime;
-    private Date placeTime;
+    private Date placedTime;
     private Long period;
 
 }
