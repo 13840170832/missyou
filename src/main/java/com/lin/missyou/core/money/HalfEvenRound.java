@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-@Component
+//@Component
 public class HalfEvenRound implements IMoneyDiscount {
 
     @Override
